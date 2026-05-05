@@ -39,23 +39,65 @@
             width: 100px;
             height: 100px;
             margin: 10px;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: 600;
             text-decoration: none;
             color: #273c75;
-            border: 2px solid #273c75;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            background: #ffffff;
+            border: 2px solid #c5ceef;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(39, 60, 117, 0.08);
+            transition: all 0.25s ease;
         }
 
         a:hover {
             color: #fff;
-            background-color: #273c75;
-            border-color: #273c75;
+            background: linear-gradient(135deg, #4c6ef5, #273c75);
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(39, 60, 117, 0.28);
+            transform: translateY(-3px);
+        }
+
+        a:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(39, 60, 117, 0.15);
+        }
+
+        .pill-links a {
+            width: auto;
+            height: auto;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #4c6ef5, #273c75);
+            border: none;
+            box-shadow: 0 4px 12px rgba(39, 60, 117, 0.22);
+            letter-spacing: 0.3px;
+        }
+
+        .pill-links a:hover {
+            background: linear-gradient(135deg, #3b5bdb, #1e3a8a);
+            box-shadow: 0 8px 22px rgba(39, 60, 117, 0.38);
+            transform: translateY(-3px);
+            color: #fff;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 24px auto 0;
+            width: min(92vw, 1140px);
         }
 
         .google-form {
-            margin: 24px auto 14px;
-            width: min(92vw, 560px);
+            margin: 0;
+            flex: 1;
+            min-width: 260px;
+            width: auto;
             display: flex;
             gap: 10px;
             padding: 12px;
@@ -104,8 +146,10 @@
         }
 
         .bing-form {
-            margin: 0 auto 14px;
-            width: min(92vw, 560px);
+            margin: 0;
+            flex: 1;
+            min-width: 260px;
+            width: auto;
             display: flex;
             gap: 10px;
             padding: 12px;
@@ -154,21 +198,34 @@
         }
 
         @media (max-width: 600px) {
-            .google-form {
+            .search-row {
                 flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                margin: 16px auto 0;
                 width: min(94vw, 560px);
             }
 
+            .google-form,
             .bing-form {
                 flex-direction: column;
-                width: min(94vw, 560px);
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .google-input,
+            .bing-input {
+                flex: none;
+                width: 100%;
+                height: 44px;
+                box-sizing: border-box;
             }
 
             .google-btn,
-            .google-input,
-            .bing-btn,
-            .bing-input {
+            .bing-btn {
                 width: 100%;
+                height: 44px;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -176,7 +233,8 @@
 
 <body>
 
-    <h1>我的首頁</h1>
+    <h1>首頁</h1>
+    <div class="search-row">
     <form class="google-form" action="https://www.google.com/search" method="get" target="_blank">
         <input class="google-input" type="text" name="q" placeholder="搜尋關鍵字">
         <button class="google-btn" type="submit">Google 搜尋</button>
@@ -185,25 +243,29 @@
         <input class="bing-input" type="text" name="q" placeholder="搜尋關鍵字">
         <button class="bing-btn" type="submit">Bing 搜尋</button>
     </form>
-    <div class="links">
+    </div>
+    <div class="links pill-links">
         <h2>資料儲存區</h2>
         <a href="https://onedrive.live.com/?view=0">One Drive</a>
         <a href="https://drive.google.com">Google Drive</a>
     </div>
-    <div class="links">
+    <div class="links pill-links">
         <h2>常用連結區</h2>
+        <a href="markdown-basics.html">Markdown 寫作格式教學</a>
+    </div>
+    <div class="links pill-links">
         <a href="https://mail.google.com/mail/u/0/#inbox">Gmail</a>
         <a href="https://calendar.google.com">Google Calendar</a>
         <a href="https://gemini.google.com/app?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all">Google
             Gemini</a>
     </div>
-    <div class="links">
+    <div class="links pill-links">
         <a href="https://notion.so">Notion</a>
         <a href="https://chatgpt.com/">ChatGPT</a>
         <a href="https://github.com/">GitHub</a>
         <a href="https://gitlab.com/">GitLab</a>
     </div>
-    <div class="links">
+    <div class="links pill-links">
         <a href="https://outlook.live.com/mail/">Outlook</a>
         <a href="https://copilot.microsoft.com/">Copilot</a>
     </div>

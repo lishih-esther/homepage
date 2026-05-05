@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <title>Markdown 寫作格式教學</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      display: flex;
       background: #f9fafb;
       color: #333;
     }
@@ -19,10 +21,53 @@
       color: white;
       padding: 20px;
       overflow-y: auto;
+      box-sizing: border-box;
+      transition: width 0.2s ease;
     }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+    .nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px 20px;
+    }
+
     nav h2 {
       font-size: 18px;
       margin-bottom: 10px;
+      color: #ffffff;
     }
     nav a {
       display: block;
@@ -34,10 +79,69 @@
       color: white;
     }
     main {
-      margin-left: 270px;
+      margin-left: 250px;
+      width: calc(100% - 250px);
       padding: 40px;
-      width: 100%;
+      box-sizing: border-box;
     }
+
+    @media (max-width: 900px) {
+      nav {
+        width: 180px;
+        padding: 14px;
+        font-size: 14px;
+      }
+      nav h2 {
+        font-size: 15px;
+      }
+      main {
+        margin-left: 180px;
+        width: calc(100% - 180px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hamburger {
+        display: flex;
+      }
+      nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 0;
+        overflow: visible;
+      }
+      .nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        padding: 8px 16px 16px;
+        gap: 4px;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      nav a {
+        margin: 0;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+      nav a:hover {
+        background: rgba(255,255,255,0.1);
+      }
+      main {
+        margin-left: 0;
+        width: 100%;
+        padding: 16px;
+      }
+    }
+
     h1, h2, h3 {
       color: #2c3e50;
     }
@@ -65,7 +169,14 @@
 <body>
 
 <nav>
-  <h2>📚 目錄</h2>
+  <div class="nav-header">
+    <h2>📚 目錄</h2>
+    <button class="hamburger" id="hamburger" aria-label="開啟目錄">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-links" id="nav-links">
+  <a href="index.html">🏠 回首頁</a>
   <a href="#intro">介紹</a>
   <a href="#heading">標題</a>
   <a href="#text">文字樣式</a>
@@ -76,6 +187,7 @@
   <a href="#table">表格</a>
   <a href="#hr">分隔線</a>
   <a href="#summary">總結</a>
+  </div>
 </nav>
 
 <main>
@@ -194,5 +306,19 @@ print("Hello World")
 
 </main>
 
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+</script>
 </body>
 </html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Markdown 寫作格式教學</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      background: #f9fafb;
+      color: #333;
+    }
+    nav {
+      width: 250px;
+      height: 100vh;
+      position: fixed;
+      background: #1f2937;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    nav h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    nav a {
+      display: block;
+      color: #d1d5db;
+      text-decoration: none;
+      margin: 8px 0;
+    }
+    nav a:hover {
+      color: white;
+    }
+    main {
+      margin-left: 270px;
+      padding: 40px;
+      width: 100%;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h2>📚 目錄</h2>
+  <a href="#intro">介紹</a>
+  <a href="#heading">標題</a>
+  <a href="#text">文字樣式</a>
+  <a href="#list">清單</a>
+  <a href="#link">連結與圖片</a>
+  <a href="#quote">引用</a>
+  <a href="#code">程式碼</a>
+  <a href="#table">表格</a>
+  <a href="#hr">分隔線</a>
+  <a href="#summary">總結</a>
+</nav>
+
+<main>
+
+<h1 id="intro">📄 Markdown（.md）寫作格式教學</h1>
+<p>這個頁面介紹 Markdown 的基本語法、使用方式與範例。</p>
+
+<div class="box" id="heading">
+  <h2>1️⃣ 標題（Headings）</h2>
+  <pre># H1 標題
+## H2 標題
+### H3 標題</pre>
+</div>
+
+<div class="box" id="text">
+  <h2>2️⃣ 文字樣式</h2>
+  <pre>**粗體**
+*斜體*
+~~刪除線~~
+`程式碼`</pre>
+  <p><strong>粗體</strong>、<em>斜體</em>、<del>刪除線</del>、<code>程式碼</code></p>
+</div>
+
+<div class="box" id="list">
+  <h2>3️⃣ 清單</h2>
+  <pre>- 項目一
+- 項目二
+  - 子項目</pre>
+  <ul>
+    <li>項目一</li>
+    <li>項目二
+      <ul>
+        <li>子項目</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="box" id="link">
+  <h2>4️⃣ 連結與圖片</h2>
+  
+  <h3>📌 基本語法</h3>
+  <pre>[連結文字](https://example.com)
+![圖片說明](image.jpg)</pre>
+
+  <h3>📖 說明</h3>
+  <ul>
+    <li><strong>連結</strong>：使用 <code>[文字](網址)</code> 的格式</li>
+    <li><strong>圖片</strong>：在連結前加上 <code>!</code>，變成 <code>![說明](圖片網址)</code></li>
+    <li>圖片的「說明文字」會在圖片無法顯示時出現（alt text）</li>
+  </ul>
+
+  <h3>✅ 範例</h3>
+  <pre>[Google](https://www.google.com)
+
+![範例圖片](https://via.placeholder.com/150)</pre>
+
+  <p>
+    🔗 連結示範：
+    <a href="https://www.google.com" target="_blank">Google</a>
+  </p>
+
+  <p>🖼️ 圖片示範：</p>
+  <img src="https://via.placeholder.com/150" alt="範例圖片" style="border-radius:8px;">
+
+  <h3>⚙️ 進階用法</h3>
+  <pre>[Google](https://www.google.com "滑鼠提示文字")</pre>
+
+  <p>當滑鼠移到連結上時，會顯示提示文字（title）。</p>
+
+  <h3>📌 小技巧</h3>
+  <ul>
+    <li>圖片可以使用網路圖片（URL）或本地檔案</li>
+    <li>如果圖片太大，可以在 HTML 中用 <code>&lt;img&gt;</code> 控制大小</li>
+    <li>Markdown 本身不支援圖片大小設定，需要搭配 HTML</li>
+  </ul>
+
+</div>
+
+<div class="box" id="quote">
+  <h2>5️⃣ 引用</h2>
+  <pre>> 這是一段引用文字</pre>
+  <blockquote>這是一段引用文字</blockquote>
+</div>
+
+<div class="box" id="code">
+  <h2>6️⃣ 程式碼區塊</h2>
+  <pre>```python
+print("Hello World")
+```</pre>
+</div>
+
+<div class="box" id="table">
+  <h2>7️⃣ 表格</h2>
+  <pre>| 名稱 | 年齡 |
+|------|------|
+| 小明 | 18 |
+| 小美 | 20 |</pre>
+  <table border="1" cellpadding="6">
+    <tr><th>名稱</th><th>年齡</th></tr>
+    <tr><td>小明</td><td>18</td></tr>
+    <tr><td>小美</td><td>20</td></tr>
+  </table>
+</div>
+
+<div class="box" id="hr">
+  <h2>8️⃣ 分隔線</h2>
+  <pre>---</pre>
+  <hr>
+</div>
+
+<div class="box" id="summary">
+  <h2>📌 總結</h2>
+  <p>Markdown 是一種簡單又強大的標記語言，非常適合用於筆記、文件與網頁內容撰寫。</p>
+</div>
+
+</main>
+
+</body>
+</html>

@@ -226,25 +226,48 @@
       transition: background 0.3s;
     }
     .carousel-dot.active { background: #555; }
+    .info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 1.2em 0;
+    }
+    .info-card {
+      background: #f7f5f0;
+      border-left: 4px solid #7a9e7e;
+      border-radius: 8px;
+      padding: 14px 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+    .info-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 1em;
+      color: #4a7a4e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card ul {
+      margin: 0;
+      padding-left: 1.2em;
+      line-height: 1.8;
+    }
   </style>
 </head>
 <body>
 <p>半島秘境</p>
 <p><img src="img2/image1.jpg"
-style="width:100%;height:auto"
-alt="一張含有 戶外, 樹狀, 簽名、標誌, 文字 的圖片 AI 產生的內容可能不正確。" /></p>
+style="width:100%;height:auto" /></p>
 <p>園區地圖</p>
 <p><img src="img2/image2.jpg"
-style="width:100%;height:auto"
-alt="一張含有 文字, 地圖 的圖片 AI 產生的內容可能不正確。" /></p>
+style="width:100%;height:auto" /></p>
 <p><img src="img2/image3.jpg"
-style="width:100%;height:auto"
-alt="一張含有 地圖, 空中攝影, 俯視圖, 島嶼 的圖片 AI 產生的內容可能不正確。" /></p>
+style="width:100%;height:auto" /></p>
 <p>露營區－海牧營區，可包區（12帳70000，人數48人）</p>
 <div class="carousel" id="carousel-1">
   <div class="carousel-track">
-    <div class="carousel-slide"><img src="img2/image4.jpg" style="width:100%;height:auto" alt="一張含有 草, 戶外, 天空, 雲 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image5.jpg" style="width:100%;height:auto" alt="一張含有 草, 戶外, 天空, 樹狀 的圖片 AI 產生的內容可能不正確。" /></div>
+    <div class="carousel-slide"><img src="img2/image4.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image5.jpg" style="width:100%;height:auto" /></div>
   </div>
   <button class="carousel-btn prev" onclick="moveCarousel('carousel-1', -1)">&#10094;</button>
   <button class="carousel-btn next" onclick="moveCarousel('carousel-1', 1)">&#10095;</button>
@@ -255,9 +278,9 @@ alt="一張含有 地圖, 空中攝影, 俯視圖, 島嶼 的圖片 AI 產生的
 </div>
 <div class="carousel" id="carousel-2">
   <div class="carousel-track">
-    <div class="carousel-slide"><img src="img2/image6.jpg" style="width:100%;height:auto" alt="一張含有 天空, 戶外, 草, 服裝 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image7.jpeg" style="width:100%;height:auto" alt="Image" /></div>
-    <div class="carousel-slide"><img src="img2/image8.jpg" style="width:100%;height:auto" alt="一張含有 室內, 建築, 房子, 地板 的圖片 AI 產生的內容可能不正確。" /></div>
+    <div class="carousel-slide"><img src="img2/image6.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image7.jpeg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image8.jpg" style="width:100%;height:auto" /></div>
   </div>
   <button class="carousel-btn prev" onclick="moveCarousel('carousel-2', -1)">&#10094;</button>
   <button class="carousel-btn next" onclick="moveCarousel('carousel-2', 1)">&#10095;</button>
@@ -268,14 +291,13 @@ alt="一張含有 地圖, 空中攝影, 俯視圖, 島嶼 的圖片 AI 產生的
   </div>
 </div>
 <p><img src="img2/image9.jpg"
-style="width:100%;height:auto"
-alt="一張含有 戶外, 天空, 樹狀, 地面 的圖片 AI 產生的內容可能不正確。" /></p>
+style="width:100%;height:auto" /></p>
 <p>會館-雙人套房5間(可加行軍床)、四人和室2間、包館人數最多22~25人</p>
 <div class="carousel" id="carousel-3">
   <div class="carousel-track">
-    <div class="carousel-slide"><img src="img2/image10.jpg" style="width:100%;height:auto" alt="一張含有 室內, 樓梯, 地板, 牆 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image11.jpeg" style="width:100%;height:auto" alt="Image" /></div>
-    <div class="carousel-slide"><img src="img2/image12.jpeg" style="width:100%;height:auto" alt="Image" /></div>
+    <div class="carousel-slide"><img src="img2/image10.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image11.jpeg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image12.jpeg" style="width:100%;height:auto" /></div>
   </div>
   <button class="carousel-btn prev" onclick="moveCarousel('carousel-3', -1)">&#10094;</button>
   <button class="carousel-btn next" onclick="moveCarousel('carousel-3', 1)">&#10095;</button>
@@ -288,11 +310,11 @@ alt="一張含有 戶外, 天空, 樹狀, 地面 的圖片 AI 產生的內容可
 <p>早餐用餐區</p>
 <div class="carousel" id="carousel-4">
   <div class="carousel-track">
-    <div class="carousel-slide"><img src="img2/image13.jpg" style="width:100%;height:auto" alt="一張含有 門, 建築, 垃圾桶, 板凳 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image14.jpg" style="width:100%;height:auto" alt="一張含有 地板, 室內, 傢俱, 天花板 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image15.jpg" style="width:100%;height:auto" alt="一張含有 室內, 牆, 家用電器, 天花板 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image16.jpg" style="width:100%;height:auto" alt="一張含有 牆, 室內, 傢俱, 天花板 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image17.jpg" style="width:100%;height:auto" alt="一張含有 紅色, 牆, 門, 冰箱 的圖片 AI 產生的內容可能不正確。" /></div>
+    <div class="carousel-slide"><img src="img2/image13.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image14.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image15.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image16.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image17.jpg" style="width:100%;height:auto" /></div>
   </div>
   <button class="carousel-btn prev" onclick="moveCarousel('carousel-4', -1)">&#10094;</button>
   <button class="carousel-btn next" onclick="moveCarousel('carousel-4', 1)">&#10095;</button>
@@ -304,30 +326,16 @@ alt="一張含有 戶外, 天空, 樹狀, 地面 的圖片 AI 產生的內容可
     <span class="carousel-dot" onclick="goToSlide('carousel-4', 4)"></span>
   </div>
 </div>
-<p>烤肉</p>
-<div class="carousel" id="carousel-5">
-  <div class="carousel-track">
-    <div class="carousel-slide"><img src="img2/image18.jpeg" style="width:100%;height:auto" alt="一張含有 文字, 功能表, 蔬菜, 食物 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image19.jpeg" style="width:100%;height:auto" alt="一張含有 文字, 功能表, 蔬菜, 食物 的圖片 AI 產生的內容可能不正確。" /></div>
-  </div>
-  <button class="carousel-btn prev" onclick="moveCarousel('carousel-5', -1)">&#10094;</button>
-  <button class="carousel-btn next" onclick="moveCarousel('carousel-5', 1)">&#10095;</button>
-  <div class="carousel-dots">
-    <span class="carousel-dot active" onclick="goToSlide('carousel-5', 0)"></span>
-    <span class="carousel-dot" onclick="goToSlide('carousel-5', 1)"></span>
-  </div>
-</div>
 <p>交誼廳</p>
 <p><img src="img2/image20.jpg"
-style="width:100%;height:auto"
-alt="一張含有 天花板, 室內, 地板, 地面 的圖片 AI 產生的內容可能不正確。" /></p>
+style="width:100%;height:auto" /></p>
 <p>秘境</p>
 <div class="carousel" id="carousel-6">
   <div class="carousel-track">
-    <div class="carousel-slide"><img src="img2/image21.jpg" style="width:100%;height:auto" alt="一張含有 戶外, 植物, 水, 樹狀 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image22.jpg" style="width:100%;height:auto" alt="一張含有 戶外, 樹狀, 天空, 植物 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image23.jpg" style="width:100%;height:auto" alt="一張含有 戶外, 天空, 水, 雲 的圖片 AI 產生的內容可能不正確。" /></div>
-    <div class="carousel-slide"><img src="img2/image24.jpg" style="width:100%;height:auto" alt="一張含有 戶外, 地圖, 文字, 天空 的圖片 AI 產生的內容可能不正確。" /></div>
+    <div class="carousel-slide"><img src="img2/image21.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image22.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image23.jpg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image24.jpg" style="width:100%;height:auto" /></div>
   </div>
   <button class="carousel-btn prev" onclick="moveCarousel('carousel-6', -1)">&#10094;</button>
   <button class="carousel-btn next" onclick="moveCarousel('carousel-6', 1)">&#10095;</button>
@@ -336,6 +344,51 @@ alt="一張含有 天花板, 室內, 地板, 地面 的圖片 AI 產生的內容
     <span class="carousel-dot" onclick="goToSlide('carousel-6', 1)"></span>
     <span class="carousel-dot" onclick="goToSlide('carousel-6', 2)"></span>
     <span class="carousel-dot" onclick="goToSlide('carousel-6', 3)"></span>
+  </div>
+</div>
+<div class="info-cards">
+  <div class="info-card">
+    <h3>🗓️ 活動預定</h3>
+    <ul>
+      <li>第一天：園區自由活動，晚餐：烤肉</li>
+      <li>第二天：早餐（園區提供），主日聚會，午餐，歸賦</li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3>🏕️ 住宿方案</h3>
+    <ul>
+      <li>第一種：會館包棟＋部分帳篷（如果會館房間已滿）</li>
+      <li>第二種：露營區包場</li>
+    </ul>
+    <h3>💰 費用預估</h3>
+    <ul>
+      <li>住宿費用</li>
+      <li>烤肉費用</li>
+      <li>交誼廳租借</li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3>✨ 其他特色</h3>
+    <ul>
+      <li>寵物友善</li>
+      <li>海邊風景</li>
+      <li>近白沙灣</li>
+      <li>停車方便</li>
+    </ul>
+  </div>
+</div>
+
+<p>烤肉</p>
+<div class="carousel" id="carousel-5">
+  <div class="carousel-track">
+    <div class="carousel-slide"><img src="img2/image18.jpeg" style="width:100%;height:auto" /></div>
+    <div class="carousel-slide"><img src="img2/image19.jpeg" style="width:100%;height:auto" /></div>
+  </div>
+  <button class="carousel-btn prev" onclick="moveCarousel('carousel-5', -1)">&#10094;</button>
+  <button class="carousel-btn next" onclick="moveCarousel('carousel-5', 1)">&#10095;</button>
+  <div class="carousel-dots">
+    <span class="carousel-dot active" onclick="goToSlide('carousel-5', 0)"></span>
+    <span class="carousel-dot" onclick="goToSlide('carousel-5', 1)"></span>
   </div>
 </div>
 <script>

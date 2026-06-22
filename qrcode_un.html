@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code 圖片解析</title>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", "Segoe UI", system-ui, sans-serif;
+    margin: 0; padding: 24px;
+    background: #f4f6f9; color: #1f2933;
+    display: flex; justify-content: center;
+  }
+  .wrap { width: 100%; max-width: 640px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: #6b7280; font-size: 14px; margin: 0 0 20px; }
+  #drop {
+    border: 2px dashed #b6c2d2; border-radius: 12px;
+    background: #fff; padding: 40px 20px; text-align: center;
+    cursor: pointer; transition: .15s;
+  }
+  #drop.hover { border-color: #2563eb; background: #eff5ff; }
+  #drop p { margin: 6px 0; color: #4b5563; }
+  #drop .big { font-size: 15px; color: #1f2933; font-weight: 600; }
+  #file { display: none; }
+  .btn {
+    display: inline-block; margin-top: 10px; padding: 8px 18px;
+    background: #2563eb; color: #fff; border-radius: 8px;
+    font-size: 14px; border: none; cursor: pointer;
+  }
+  .btn:hover { background: #1d4ed8; }
+  .card { background: #fff; border-radius: 12px; padding: 18px; margin-top: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .card h2 { font-size: 14px; margin: 0 0 10px; color: #6b7280; font-weight: 600; }
+  #preview { max-width: 100%; max-height: 260px; border-radius: 8px; display: block; }
+  #result {
+    white-space: pre-wrap; word-break: break-all; font-size: 15px;
+    background: #f8fafc; border: 1px solid #e5e9f0; border-radius: 8px;
+    padding: 12px; min-height: 24px;
+  }
+  #result a { color: #2563eb; }
+  .ok { color: #16a34a; font-weight: 600; }
+  .err { color: #dc2626; font-weight: 600; }
+  .row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+  .copy { padding: 6px 14px; font-size: 13px; background: #e5e9f0; color: #1f2933;
+    border: none; border-radius: 6px; cursor: pointer; }
+  .copy:hover { background: #d4dae6; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>QR Code 圖片解析</h1>
+  <p class="sub">上傳、拖曳或貼上含 QR Code 的圖片，自動讀取內容。所有處理都在本機瀏覽器完成，圖片不會上傳到任何伺服器。</p>
+
+  <div id="drop">
+    <p class="big">點擊選擇圖片</p>
+    <p>或將圖片拖曳到此處 / 直接 Ctrl+V 貼上</p>
+    <button class="btn" type="button" id="pick">選擇檔案</button>
+    <input type="file" id="file" accept="image/*">
+  </div>
+
+  <div class="card hidden" id="previewCard">
+    <h2>圖片預覽</h2>
+    <img id="preview" alt="preview">
+  </div>
+
+  <div class="card hidden" id="resultCard">
+    <h2 id="status">解析結果</h2>
+    <div id="result"></div>
+    <div class="row">
+      <button class="copy hidden" id="copy">複製內容</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="canvas" class="hidden"></canvas>
+
+<script>
+const drop = document.getElementById('drop');
+const fileInput = document.getElementById('file');
+const pickBtn = document.getElementById('pick');
+const preview = document.getElementById('preview');
+const previewCard = document.getElementById('previewCard');
+const resultCard = document.getElementById('resultCard');
+const resultEl = document.getElementById('result');
+const statusEl = document.getElementById('status');
+const copyBtn = document.getElementById('copy');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+let lastText = '';
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function linkify(text) {
+  const esc = escapeHtml(text);
+  if (/^https?:\/\/\S+$/i.test(text.trim())) {
+    return `<a href="${esc}" target="_blank" rel="noopener noreferrer">${esc}</a>`;
+  }
+  return esc;
+}
+
+function showResult(text) {
+  lastText = text;
+  statusEl.innerHTML = '<span class="ok">✓ 解析成功</span>';
+  resultEl.innerHTML = linkify(text);
+  copyBtn.classList.remove('hidden');
+  resultCard.classList.remove('hidden');
+}
+
+function showError(msg) {
+  lastText = '';
+  statusEl.innerHTML = '<span class="err">✗ 解析失敗</span>';
+  resultEl.textContent = msg;
+  copyBtn.classList.add('hidden');
+  resultCard.classList.remove('hidden');
+}
+
+function decodeImage(img) {
+  // 縮放上限，避免超大圖片造成記憶體問題
+  const MAX = 1600;
+  let { naturalWidth: w, naturalHeight: h } = img;
+  const scale = Math.min(1, MAX / Math.max(w, h));
+  w = Math.round(w * scale); h = Math.round(h * scale);
+  canvas.width = w; canvas.height = h;
+  ctx.drawImage(img, 0, 0, w, h);
+  const imageData = ctx.getImageData(0, 0, w, h);
+  const code = jsQR(imageData.data, w, h, { inversionAttempts: 'attemptBoth' });
+  if (code && code.data) {
+    showResult(code.data);
+  } else {
+    showError('在這張圖片中找不到可辨識的 QR Code。請確認 QR Code 清晰、完整且未被裁切。');
+  }
+}
+
+function handleFile(file) {
+  if (!file || !file.type.startsWith('image/')) {
+    showError('請提供圖片檔案（PNG / JPG / GIF / WebP 等）。');
+    return;
+  }
+  const url = URL.createObjectURL(file);
+  preview.src = url;
+  previewCard.classList.remove('hidden');
+  const img = new Image();
+  img.onload = () => { decodeImage(img); URL.revokeObjectURL(url); };
+  img.onerror = () => { showError('無法讀取此圖片檔。'); URL.revokeObjectURL(url); };
+  img.src = url;
+}
+
+// 點擊 / 選檔
+pickBtn.addEventListener('click', e => { e.stopPropagation(); fileInput.click(); });
+drop.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+// 拖曳
+['dragenter','dragover'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('hover'); }));
+['dragleave','drop'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('hover'); }));
+drop.addEventListener('drop', e => {
+  const f = e.dataTransfer.files[0];
+  if (f) handleFile(f);
+});
+
+// 貼上
+window.addEventListener('paste', e => {
+  const items = e.clipboardData.items;
+  for (const it of items) {
+    if (it.type.startsWith('image/')) { handleFile(it.getAsFile()); break; }
+  }
+});
+
+// 複製
+copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(lastText);
+    copyBtn.textContent = '已複製 ✓';
+    setTimeout(() => copyBtn.textContent = '複製內容', 1500);
+  } catch {
+    copyBtn.textContent = '複製失敗';
+  }
+});
+</script>
+</body>
+</html>
